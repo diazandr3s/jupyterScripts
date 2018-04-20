@@ -21,12 +21,8 @@ import time
 # 13: image quality assessment results, where 1 indicates good quality and 0 otherwise.
 #     The threshold is set to be 0.5 here.
 
-db = 'KAGGLE'
-infoTrain = pd.read_csv('./info2crop/' + db + '/train.csv', sep=',', header=None)
-infoTest = pd.read_csv('./info2crop/' + db + '/test.csv', sep=',', header=None)
-
-infoAux = [infoTrain, infoTest]
-info = pd.concat(infoAux)
+db = 'DRIONS-DB'
+info = pd.read_csv('./info2crop/' + db + '.csv', sep=',', header=None)
 
 names = info.iloc[:,0].tolist()
 
@@ -40,11 +36,10 @@ scoreQ = info.iloc[:,11].tolist()
 scoreOD = info.iloc[:,9].tolist()
 
 
-for i in range(72540, len(y2)):
+for i in range(len(y2)):
 
     start_time = time.time()
             
-    #im = cv2.imread('../DCGAN_UNIT_baseline/S3_bucket/images2crop/' + db + '/' + names[i])
     im = cv2.imread('/mnt/users-andres-diaz-pinto/images2crop/' + db + '/' + names[i])
     
     rad = math.hypot(x2[i] - x1[i], y2[i] - y1[i]) / 3  # Linear distance
@@ -52,7 +47,6 @@ for i in range(72540, len(y2)):
     imCrop = im[int(y1[i] - rad):int(y2[i] + rad), int(x1[i] - rad):int(x2[i] + rad), :]
 
     # Saving cropped images
-    #cv2.imwrite("../DCGAN_UNIT_baseline/S3_bucket/imagesCropped/" + db + "/" + names[i], imCrop)
     cv2.imwrite("../croppedImages/" + db + "/" + names[i], imCrop)
     
     print('Processing Image number ' + str(i) + ' --- Quality score ' + str(scoreQ[i]) + '  --- OD score ' + str(scoreOD[i]) + " --- %s seconds to crop and save image ---" % (time.time() - start_time) )
