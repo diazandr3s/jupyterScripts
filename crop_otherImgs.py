@@ -21,7 +21,7 @@ import time
 # 13: image quality assessment results, where 1 indicates good quality and 0 otherwise.
 #     The threshold is set to be 0.5 here.
 
-db = 'DRIONS-DB'  # change line 45 when cropping DRIONS-DB database. Put divided by 2 instead of 3 
+db = 'SASTRA'  # change line 45 when cropping DRIONS-DB and SASTRA database. Put divided by 2 instead of 3 
 info = pd.read_csv('./info2crop/' + db + '.csv', sep=',', header=None)
 
 names = info.iloc[:,0].tolist()
