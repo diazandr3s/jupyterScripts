@@ -21,7 +21,7 @@ import time
 # 13: image quality assessment results, where 1 indicates good quality and 0 otherwise.
 #     The threshold is set to be 0.5 here.
 
-db = 'DRIONS-DB'
+db = 'SASTRA'  # change line 45 when cropping DRIONS-DB and SASTRA database. Put divided by 2 instead of 3 
 info = pd.read_csv('./info2crop/' + db + '.csv', sep=',', header=None)
 
 names = info.iloc[:,0].tolist()
@@ -42,7 +42,7 @@ for i in range(len(y2)):
             
     im = cv2.imread('/mnt/users-andres-diaz-pinto/images2crop/' + db + '/' + names[i])
     
-    rad = math.hypot(x2[i] - x1[i], y2[i] - y1[i]) / 3  # Linear distance
+    rad = math.hypot(x2[i] - x1[i], y2[i] - y1[i]) / 2  # Linear distance
 
     imCrop = im[int(y1[i] - rad):int(y2[i] + rad), int(x1[i] - rad):int(x2[i] + rad), :]
 
